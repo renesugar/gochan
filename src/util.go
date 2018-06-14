@@ -328,16 +328,6 @@ func getSectionArr(where string) (sections []interface{}, err error) {
 	return
 }
 
-func getCookie(name string) *http.Cookie {
-	numCookies := len(cookies)
-	for c := 0; c < numCookies; c++ {
-		if cookies[c].Name == name {
-			return cookies[c]
-		}
-	}
-	return nil
-}
-
 func getCountryCode(ip string) (string, error) {
 	if config.EnableGeoIP && config.GeoIPDBlocation != "" {
 		gi, err := libgeo.Load(config.GeoIPDBlocation)
@@ -387,7 +377,7 @@ func getMetaInfo(stackOffset int) (string, int, string) {
 
 func customError(err error) string {
 	if err != nil {
-		file, line, _ := getMetaInfo(2)
+		file, line, _ := getMetaInfo(1)
 		return fmt.Sprintf("[ERROR] %s:%d: %s\n", file, line, err.Error())
 	}
 	return ""
